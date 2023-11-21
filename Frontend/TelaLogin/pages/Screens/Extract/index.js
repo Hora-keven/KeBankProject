@@ -9,14 +9,15 @@ import { ApiContext } from '../../context/APicontext'
 export default function ScreenExtract({ navigation }) {
     const { userAccount } = useContext(ApiContext)
     const [movimentation, setMovimentation] = useState([])
-    const [icon, setIcon] = useState("")
+   
 
     useEffect(() => {
         api.get("movimentation/?account=" + userAccount.id).then(function (response) {
             console.log(response.data)
             const newObjects = response.data.map(each => ({
                 value: each.value,
-                state: each.state
+                state: each.state,
+                date:each.date_hour
 
             }));
 
@@ -26,29 +27,18 @@ export default function ScreenExtract({ navigation }) {
         })
     }, [])
 
-    const Historic = ({ title, valor }) => (
+    const Historic = ({ title, value, date }) => (
 
         <View style={styles.function}>
-            <Text style={styles.textT} >{title}</Text>
-            <Text style={styles.txt}>R${valor}</Text>
+            <Text style={styles.textT}>{title}</Text>
+            <Text style={styles.txt}>R${value}</Text>
+            <Text style={styles.txt}>{date.toString().replace("T", " ").replace(".705054Z"," ")}</Text>
            
             <MaterialCommunityIcons name={title == "received"?"transfer-up":"transfer-down"} size={30} style={{ color: "#155e85", bottom: 35 }} />
         </View>
 
     )
-
-    const typeMovimentation = (title) => {
-        switch (title) {
-            case "received":
-                setIcon("transfer-up")
-                break
-
-            case "sent":
-                setIcon("transfer-down")
-                break
-        }
-
-    }
+   
 
     return (
      
@@ -71,7 +61,7 @@ export default function ScreenExtract({ navigation }) {
                         <View style={styles.window}>
 
                             <View style={styles.containerTrans}>
-                                <Historic title={item.state} valor={item.value} />
+                                <Historic title={item.state} value={item.value} date={item.date} />
                             </View>
 
                         </View>

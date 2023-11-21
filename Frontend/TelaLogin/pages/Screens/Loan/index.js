@@ -70,22 +70,25 @@ export default function ScreenLoan({navigation}) {
 
                 account:userAccount.id,
                 requested_amount:parseFloat(maskValue),
-                installment_quantity:parseInt(loan),
-              
-               
+                installment_quantity:parseInt(loan),  
     
             }).then(function(response){
                 if (response.status === 201) {
                    
-                    Alert.alert("Empréstimo realizado com sucesso!!", "O valor pedido é maior que foi de: "+value)
+                    Alert.alert("Empréstimo realizado com sucesso!!", "O valor solicitado foi: "+value)
                   }
         
-                console.log(response.data)
+                console.log(response.status)
+
+            }).catch(function(error){
+                if( error.response.status === 400){
+                    Alert.alert('Empréstimo negado!', 'O valor pedido é maior que o saldo disponivel. Saldo: '+userAccount.limit);
+                }
+                console.error(error)
             })
         } catch (error) {
-        if(error.response & error.response.status === 400){
-            Alert.alert('Empréstimo negado!', 'O valor pedido é maior que o saldo disponivel. Saldo: '+userAccount.limit);
-        }
+          
+            console.error(error)
          
             
         }

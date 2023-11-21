@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
       width:'100%'
     },
     txt:{
-        fontFamily:'Dela gothic alone',
+   
         textAlign:'center',
         fontSize:76,
         color:'white',
@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
     },
     txtInformation:{
         color:'white',
-        fontFamily:'inter',
+    
         fontSize:22,
         marginTop:30,
     },
     secondPartName:{
-        fontFamily:'inter',
+      
         color:'white',
         fontSize:76
     },
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     Arrowbutton:{
         color:'white',
-        fontFamily:'inter',
+     
         fontSize:22,
         top:115,
         left:115

@@ -72,15 +72,12 @@ export default function Physical({ navigation }) {
                                     
                                     )
                                     
-                                    api.get("card/",{
+                                    api.post("card/",{
                                         account:response.data[0].id
 
                                     }).then(function(response){
-                                        console.log(response.data)
-                                        api.get("card/?account="+response.data.account)
                                         cardUserLog(response.data.number, response.data.validity)
-                                    }).then(function(response){
-                                        console.log(response.data)
+                                   
                                         navigation.navigate("First")
                                     })
                                 
@@ -98,7 +95,6 @@ export default function Physical({ navigation }) {
                 })
             }catch(error){
                 console.error(error);
-                console.log("eeee")
             }
 
           })

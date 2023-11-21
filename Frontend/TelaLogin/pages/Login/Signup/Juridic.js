@@ -107,6 +107,7 @@ export default function Juridic({ navigation }) {
                                         account:response.data[0].id
     
                                     }).then(function(response){
+
                                         api.post("address/",{
                                             city:city,
                                             neighborhood:neighborhood,
@@ -122,8 +123,8 @@ export default function Juridic({ navigation }) {
                                         })
                                         
                                         cardUserLog(
-                                            response.data[0].number,
-                                            response.data[0].validity
+                                            response.data.number,
+                                            response.data.validity
                                         )
                                     })
                                 })

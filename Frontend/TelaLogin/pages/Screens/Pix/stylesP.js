@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
       height:890
     },
     txt:{
-        fontFamily:'Dela gothic alone',
+      
         textAlign:'center',
         fontSize:20,
         color:'black',
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     
     },
     secondPartName:{
-        fontFamily:'inter',
+       
         color:'black',
         fontSize:20,
     },
     txtUser:{
-        fontFamily:'sans-serif',
+      
         fontSize:23,
         top:11,
         left:10,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
 
     text:{
-        fontFamily:'sans-serif',
+      
         fontSize:23,
         top:11,
         left:10,
