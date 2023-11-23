@@ -21,7 +21,7 @@ export default function FirstScreen({ navigation }) {
     const [imageG, setImageG] = useState('')
     const [imageJ, setImageJ] = useState('')
     const [isGalleryOrCamera, setIsGaleryOrCamera] = useState(false)
-    const{user} = useContext(ApiContext)
+    const{user, userAccount} = useContext(ApiContext)
     const [limit, setLimit] = useState("")
 
     useEffect(()=>{
@@ -170,6 +170,11 @@ export default function FirstScreen({ navigation }) {
                 </View>
                 <View style={{backgroundColor:"black"}}>
                     <Text>{user.name}</Text>
+                </View>
+                <View style={styles.account}>
+                    <Text style={{fontWeight:700, color:"white"}}>Agência: {userAccount.agency}</Text>
+                  
+                    <Text style={{fontWeight:700, color:"white"}}>Conta: {userAccount.number}-{userAccount.numberVerificate}</Text>
                 </View>
                 <View style={styles.rectangle}>
                     <Text style={styles.txtInformation}>Conta</Text>

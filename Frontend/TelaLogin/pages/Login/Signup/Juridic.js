@@ -97,8 +97,8 @@ export default function Juridic({ navigation }) {
                                     informationsAccountUser(
                                         response.data[0].id,
                                         response.data[0].agency,
-                                        response.data[0].number,
                                         response.data[0].number_verificate,
+                                        response.data[0].number,
                                         response.data[0].limit
                                     
                                     )
@@ -186,9 +186,9 @@ export default function Juridic({ navigation }) {
                 placeholder="Put your CNPJ:"
                 placeholderTextColor={"white"}/>
 
-                <TextInput style={styles.input} value={stateRegistration} onChangeText={(text)=>setStateRegistration(text)} placeholder="Put your state registration: " maxLength={9} placeholderTextColor={'white'} />
+                <TextInput style={styles.input} maxLength={10} value={stateRegistration} onChangeText={(text)=>setStateRegistration(text)} placeholder="Put your state registration: "  placeholderTextColor={'white'} />
                 <TextInput style={styles.input} value={email} onChangeText={setEmail} placeholder="Put your E-mail: " placeholderTextColor={'white'} />
-                <TextInput style={styles.input} value={password} onChangeText={(text)=>setPassword(text)} placeholder="Create your password: " placeholderTextColor={'white'} />
+                <TextInput style={styles.input} secureTextEntry={true} value={password} onChangeText={(text)=>setPassword(text)} maxLength={40} placeholder="Create your password: " placeholderTextColor={'white'} />
                 <TextInput style={[styles.input, {width:210}]}  value={pac} onChangeText={(text)=>setPac(text)} placeholder="Put your pac: " placeholderTextColor={'white'} />
 
                 <View style={{position:"relative", left:227, bottom:27.5}}>

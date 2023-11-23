@@ -7,7 +7,7 @@ import { useContext, useState } from "react";
 import * as Animatable from 'react-native-animatable';
 import { ApiContext } from "../../context/APicontext";
 import { TextInputMask } from 'react-native-masked-text'
-import Juridic from "../Signup/Juridic";
+import { Alert } from "react-native";
 
 export default function LoginUser({ navigation }) {
 
@@ -33,14 +33,14 @@ export default function LoginUser({ navigation }) {
                   
                 })
                 try {
-                    api.get(`account/?${cpfCnpj.length == 11? 'physical_person='+cpfCnpj: 'juridic_person='+cpfCnpj}`).then(function(response){
+                    api.get(`account/?${(cpfCnpj.length) == 11? 'physical_person='+cpfCnpj: 'juridic_person='+cpfCnpj}`).then(function(response){
                         console.log(response.data[0])
                         
                         informationsAccountUser(
                             response.data[0].id,
                             response.data[0].agency,
-                            response.data[0].number,
                             response.data[0].number_verificate,
+                            response.data[0].number,
                             response.data[0].limit
                         
                         )
@@ -58,10 +58,14 @@ export default function LoginUser({ navigation }) {
                 }
             } catch (error) {
                 console.error(error)
+               
             }
           
           }).catch(function (error) {
             console.error(error);
+            if( error.response.status === 400){
+                Alert.alert("Usuário não encontrado!", "Verifique seu usuario e senha!")
+            }
           });
 
         }catch(error){

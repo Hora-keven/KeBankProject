@@ -6,7 +6,7 @@ from decimal import Decimal
 from Kebank.Api.number_rand import number_random
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
-
+from rest_framework.filters import SearchFilter
 
 class PhysicalPersonViewSet(viewsets.ModelViewSet):
     serializer_class = PhysicalPersonSerializer
@@ -154,7 +154,7 @@ class MovimentationViewSet(viewsets.ModelViewSet):
     queryset = Movimentation.objects.all()
     
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["account"]
+    filterset_fields = ["account", "state"]
     
 class PixViewSet(viewsets.ModelViewSet):
     serializer_class = PixSerializer

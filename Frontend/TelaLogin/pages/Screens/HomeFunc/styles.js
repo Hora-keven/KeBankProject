@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
      
     },
     txt:{
-        fontFamily:'sans-serif',
+    
         textAlign:'center',
         fontSize:20,
         color:'black',
@@ -29,20 +29,20 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         width:'100%', 
-        bottom:90,
+        bottom:130,
         left:125
     },
     secondPartName:{
-        fontFamily:'sans-serif',
+ 
         color:'black',
         fontSize:20,
     },
     txtUser:{
         color:'black',
-        fontFamily:'inter',
+    
         fontSize:22,
-        bottom:340,
-        right:100
+        bottom:50,
+     
     },
    
     inputs:{
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     },
     button:{
         color:'black',
-        fontFamily:'sans-serif',
         fontSize:30,
     },
    
@@ -72,7 +71,19 @@ const styles = StyleSheet.create({
         borderRadius:35,
        
     },
-   
+   account:{
+    width:"88%",
+    height:100,
+    zIndex:12, 
+    display:"flex",
+    alignItems:"center", 
+    justifyContent:"center",
+    bottom:285,
+    backgroundColor:"#155e85",
+    borderRadius:8,
+ 
+ 
+   },
     containerImgF:{
         width:50,
         height:50,
@@ -84,17 +95,22 @@ const styles = StyleSheet.create({
         width:70,
         height:70,
         position:'relative',
-        bottom:290,
-        right:210,
-        marginTop:410,
+        right:145,
         backgroundColor:'#155e85',
         borderRadius:35,
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent:'flex-start',
+        alignItems:'flex-start',
+       
+       
     },
     information:{
-        left:125,
-        marginTop:120,
+    
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        width:450,
+        height:600,
+     
       
         
     },
@@ -103,7 +119,7 @@ const styles = StyleSheet.create({
         height:'10%',
         backgroundColor:'#155e85',
         borderRadius:8,
-        bottom:589,
+        bottom:659,
         position:'absolute',
         shadowColor: "#000",
         shadowOffset: {
@@ -154,7 +170,7 @@ const styles = StyleSheet.create({
    
     
     },
-    cameraOuGaleria:{
+    cameraOuGalery:{
         display:"flex",
         flexDirection:"row",
         width: 100, 
@@ -188,7 +204,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#155e85',
         width:"99%",
         height:"40%",
-        bottom:119,
+        bottom:169,
         borderRadius:7,
         position:'relative',
         alignItems:'center',

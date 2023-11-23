@@ -137,7 +137,7 @@ class Card(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE, null=False, related_name="account_card")
     flag_card = models.CharField(max_length=20, default="Mastercard")
     number = models.CharField(max_length=16, unique=True)
-    validity = models.CharField(max_length=7, blank=True)
+    validity = models.DateField()
     cvv = models.IntegerField()
     
     def save(self, *args, **kwargs):

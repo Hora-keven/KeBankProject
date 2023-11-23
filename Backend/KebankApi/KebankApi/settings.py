@@ -46,6 +46,14 @@ INSTALLED_APPS = [
     "django_filters"
    
 ]
+# settings.py
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
 
 REST_FRAMEWORK = {
     
@@ -72,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'Kebank.middleware.RequestLimitMiddleware',
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 

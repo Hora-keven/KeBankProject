@@ -66,8 +66,8 @@ export default function Physical({ navigation }) {
                                     informationsAccountUser(
                                         response.data[0].id,
                                         response.data[0].agency,
-                                        response.data[0].number,
                                         response.data[0].number_verificate,
+                                        response.data[0].number,
                                         response.data[0].limit
                                     
                                     )
@@ -182,8 +182,8 @@ export default function Physical({ navigation }) {
                 <TextInput style={styles.input} value={name} onChangeText={(text)=>setName(text)} placeholder="Put your first name:" placeholderTextColor={'white'} />
                 <TextInput style={styles.input} value={lastName} onChangeText={setLastName} placeholder="Put your last name:" placeholderTextColor={'white'} />
                 <TextInput style={styles.input} value={email} onChangeText={setEmail} placeholder="Put your E-mail: " placeholderTextColor={'white'} />
-                <TextInput style={styles.input} value={number} onChangeText={(text)=>setNumber(text)} placeholder="Put your telephone number: " placeholderTextColor={'white'} />
-                <TextInput style={styles.input} value={password} onChangeText={(text)=>setPassword(text)} placeholder="Create your password: " placeholderTextColor={'white'} />
+                <TextInput style={styles.input} maxLength={11} inputMode={"numeric"} value={number} onChangeText={(text)=>setNumber(text)} placeholder="Put your telephone number: " placeholderTextColor={'white'} />
+                <TextInput style={styles.input} secureTextEntry={true} value={password} onChangeText={(text)=>setPassword(text)} placeholder="Create your password: " placeholderTextColor={'white'} />
                 <TextInput style={styles.input} value={bornDate} onChangeText={(text) =>setBornDate(text)} placeholder="Put your born date: " placeholderTextColor={'white'} />
                 <TextInput style={styles.input} value={cpf} onChangeText={(text)=>setCpf(text)} inputMode="numeric" placeholder="Put your CPF: " placeholderTextColor={'white'} />
                 <TextInput style={styles.input} value={rg} onChangeText={(text)=>setRg(text)} placeholder="Put your Rg: " placeholderTextColor={'white'} />

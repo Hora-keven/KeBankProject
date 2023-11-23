@@ -6,7 +6,7 @@ import {   Ionicons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import { Modalize } from 'react-native-modalize';
 import { TextInputMask } from 'react-native-masked-text'
-import DropdowmFees from "./../../../components/dropdownfees"
+import DropdowmAnything from "../../../components/dropdownAnything"
 import DialogMessage from '../../../components/dialog';
 import { ApiContext } from '../../context/APicontext';
 import api from "./../../Api/Api"
@@ -154,7 +154,7 @@ export default function ScreenLoan({navigation}) {
                                    setValue(text)
                                 }}/>
 
-                                <DropdowmFees/>
+                                <DropdowmAnything label1={"12x"} label2={"24x"} label3={"36x"} value1={12} value2={24} value3={36} placeH={"Parcelas"} color={"white"}/>
                         
                         <TouchableOpacity  style={styles.button} onPress={sendLoan }>
                            <Ionicons size={30} color={"white"} name="ios-arrow-forward" />

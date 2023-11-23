@@ -2,6 +2,16 @@ from rest_framework import serializers
 from django.db.models import fields
 from Kebank.models import *
 from Kebank.Api.number_rand import *
+from datetime import datetime, timedelta
+import pytz
+
+date_actual = datetime.now(pytz.utc)
+
+date_future = date_actual + timedelta(days=365 * 5)
+
+fuso_horario = pytz.timezone('America/Sao_Paulo')
+
+date_future_timezone = date_future.astimezone(fuso_horario)
 
 
 
@@ -12,9 +22,15 @@ class AddressSerialzer(serializers.ModelSerializer):
       fields = "__all__"
   
 class MovimentationSerializer(serializers.ModelSerializer):
+    date_hour = serializers.SerializerMethodField()
     class Meta:
       model = Movimentation
       fields = "__all__"
+
+  
+    def get_date_hour(self, instance):
+    
+        return instance.date_hour.strftime('%d/%m/%Y %H:%M:%S')
       
 class CardSerializer(serializers.ModelSerializer):
   class Meta:
@@ -27,7 +43,7 @@ class CardSerializer(serializers.ModelSerializer):
             'account': Account.objects.get(id=data['account']),
             'flag_card': 'Mastercard',
             'number': str(number_random(a=100000000000, b=1000000000000))+"0810",
-            'validity': '12/2035',
+            'validity': date_future_timezone.date(),
             'cvv': number_random(100, 900),  
         }
 

@@ -21,7 +21,7 @@ export default function Card(){
             <Image source={chip} style={styles.chipC}/>
             <Text style={styles.number}>{numberFormated == null?0:numberFormated}</Text>
             <Text style={styles.nameCard}>{user.nameOrCompanyName}</Text>
-            <Text style={ {top:9, position:"relative", left:140, color:"white", fontSize:18,}}>{cardUser.validity}</Text>
+            <Text style={ {top:9, position:"relative", left:140, color:"white", fontSize:16,}}>{cardUser.validity}</Text>
 
             <Image source={flagCard} style={ {left:250, bottom:20}}/>
 
@@ -88,14 +88,15 @@ const styles = StyleSheet.create({
     
     nameCard:{
   
-        fontSize:18,
+        fontSize:16,
         top:35,
         color:'white',
         
     },
     number:{
+    
         color:'white',
-        fontSize:18,
+        fontSize:15,
         top:35
     },
     nfcC:{

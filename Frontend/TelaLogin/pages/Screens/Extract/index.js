@@ -6,10 +6,11 @@ import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import api from '../../Api/Api'
 import * as Animatable from 'react-native-animatable'
 import { ApiContext } from '../../context/APicontext'
+import DropdownAnything from '../../../components/dropdownAnything';
 export default function ScreenExtract({ navigation }) {
-    const { userAccount } = useContext(ApiContext)
+    const { userAccount, loan } = useContext(ApiContext)
     const [movimentation, setMovimentation] = useState([])
-   
+    const [searchUser, setSearchUser] = useState("")
 
     useEffect(() => {
         api.get("movimentation/?account=" + userAccount.id).then(function (response) {
@@ -38,7 +39,21 @@ export default function ScreenExtract({ navigation }) {
         </View>
 
     )
-   
+    const search = ()=>{
+        api.get(`movimentation/?${loan}=` + searchUser).then(function (response) {
+            console.log(response.data)
+            const newObjects = response.data.map(each => ({
+                value: each.value,
+                state: each.state,
+                date:each.date_hour
+
+            }));
+
+            console.log("aaaaa")
+            setMovimentation(newObjects);
+
+        })
+    }
 
     return (
      
@@ -47,12 +62,13 @@ export default function ScreenExtract({ navigation }) {
                     <Text style={styles.text}>Extrato</Text>
                 </View>
                 <View style={styles.inputs}>
-                    <TextInput style={styles.input} placeholderTextColor={'black'} placeholder=" Buscar: " />
+                    <DropdownAnything label1={"Estado"} label2={"Data/hora"} label3={"Valor"} value1={"state"} value2={"date_hour"} value3={"value"} placeH={"Filtros"} color={"black"}/>
+                    <TextInput style={styles.input} value={searchUser} onChangeText={(text)=>setSearchUser(text)} placeholderTextColor={'black'} placeholder=" Buscar: " />
                 </View>
 
                 <View>
-                    <TouchableOpacity onPress={() => { navigation.navigate('First') }} style={styles.button}>
-                        <Feather name="search" size={24} color="black" style={styles.Arrowbutton} />
+                    <TouchableOpacity onPress={search} style={styles.Arrowbutton}>
+                        <Feather name="search" size={24} color="black"  />
                     </TouchableOpacity>
                 </View>
               
