@@ -2,10 +2,10 @@ import { View, Text, TextInput, Handle } from "react-native";
 import styles from "./stylesUser";
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
-import api from "../../Api/Api";
+import api from "../../../Api/Api"; 
 import { useContext, useState } from "react";
 import * as Animatable from 'react-native-animatable';
-import { ApiContext } from "../../context/APicontext";
+import { ApiContext } from "./../../../context/APicontext";
 import { TextInputMask } from 'react-native-masked-text'
 import { Alert } from "react-native";
 
@@ -13,13 +13,13 @@ export default function LoginUser({ navigation }) {
 
     const [cpfCnpj, setCpfCnpj] = useState('')
     const [password, setPassword] = useState('')
-    const {tokenUser, userLog,cardUserLog, informationsAccountUser} = useContext(ApiContext)
-   
+    const {tokenUser, userLog, cardUserLog, informationsAccountUser} = useContext(ApiContext)
+  
     async function logar (){
         try{
             console.log(noMask)
             api.post('auth/token/login/',{
-                username:noMask,
+                cpf_cnpj:noMask,
                 password:password
     
           }).then(function(response){
@@ -29,11 +29,11 @@ export default function LoginUser({ navigation }) {
                 api.defaults.headers.Authorization = `Token ${response.data.auth_token}`
                 api.get("users/me/").then(function(response){
                     console.log(response.data.username)
-                    userLog(response.data.id, response.data.first_name, response.data.email, response.data.username )
+                    userLog(response.data.id, response.data.first_name, response.data.email, response.data.cpf_cnpj )
                   
                 })
                 try {
-                    api.get(`account/?${(cpfCnpj.length) == 11? 'physical_person='+cpfCnpj: 'juridic_person='+cpfCnpj}`).then(function(response){
+                    api.get(`account/?${(noMask.length) == 11? 'physical_person='+noMask: 'juridic_person='+noMask}`).then(function(response){
                         console.log(response.data[0])
                         
                         informationsAccountUser(
@@ -73,7 +73,7 @@ export default function LoginUser({ navigation }) {
         }
       
     }
-    const noMask = cpfCnpj.replace(/\.|-/gm, "")
+    const noMask = cpfCnpj.replace(/\.|-|[\/]/gm, "")
     return (
         <View style={styles.container}>
 
@@ -86,9 +86,9 @@ export default function LoginUser({ navigation }) {
 
             <View style={styles.inputs}>
             <TextInputMask
-                        type={"only-numbers"}
+                        type={(cpfCnpj.length) > 13?"cnpj":"cpf"}
                         style={styles.input}
-                        maxLength={14}
+                       
                         value={cpfCnpj}
                         placeholder='Digite seu CPF/CNPJ:'
                         placeholderTextColor={'white'}

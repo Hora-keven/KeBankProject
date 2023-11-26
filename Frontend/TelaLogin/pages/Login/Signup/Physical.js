@@ -4,11 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
 import { useContext, useState } from 'react';
 
-import { ApiContext } from "../../context/APicontext";
+import { ApiContext } from "../../../context/APicontext";
 
-import api from "../../Api/Api";
+import api from "../../../Api/Api"; "../../Api/Api";
 import DropdownChoice from "../../../components/dropdown.jsx";
-import apiCep from "../../Api/ApiCep";
+import apiCep from "./../../../Api/ApiCep.jsx";
 
 export default function Physical({ navigation }) {
     const {user, userLog, tokenUser, token, optionAccount, cardUserLog, informationsAccountUser} = useContext(ApiContext)
@@ -112,7 +112,7 @@ export default function Physical({ navigation }) {
         try{
 
             api.post('users/',{
-                username:cpf,
+                cpf_cnpj:cpf,
                 first_name:name,
                 surname:lastName,
                 email:email,
@@ -124,7 +124,7 @@ export default function Physical({ navigation }) {
           
             try{
                 api.post('auth/token/login/',{
-                    username:cpf,
+                    cpf_cnpj:cpf,
                     password:password
         
               }).then(function(response){

@@ -6,8 +6,9 @@ import {   Ionicons } from '@expo/vector-icons';
 import * as Animatable from 'react-native-animatable';
 import { Modalize } from 'react-native-modalize';
 import { TextInputMask } from 'react-native-masked-text'
-import DropdowmAnything from "../../../components/dropdownAnything"
-import DialogMessage from '../../../components/dialog';
+
+import DropdowmAnything from "../../components/dropdownAnything"
+import DialogMessage from './../../components/dialog.jsx';
 import { ApiContext } from '../../context/APicontext';
 import api from "./../../Api/Api"
 import { Alert } from 'react-native';

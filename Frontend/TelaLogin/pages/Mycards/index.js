@@ -1,19 +1,20 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import styles from './styles';
-import Card from '../../../components/card.jsx';
+import Card from '../../components/card.jsx';
 import * as Animatable from 'react-native-animatable';
 import api from '../../Api/Api';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ApiContext } from '../../context/APicontext';
 
 
 export default function ScreenCards({ navigation }) {
     const {userAccount, user} = useContext(ApiContext)
-
    
 
     const askCard = ()=>{
+
         try {
+          
             api.post("creditcard/", {
                     account:userAccount.id
 
@@ -21,11 +22,21 @@ export default function ScreenCards({ navigation }) {
                 console.log(response.data.account)
                 api.get("creditcard/?account="+response.data.account).then(function(response){
                    
-                    Alert.alert("Libera pra você!","Limite: " +response.data[0].limit)
+                    Alert.alert("Liberado pra você!","Limite: " +response.data[0].limit)
                 }) 
+            }).catch(function(error){
+                if(error.response && error.response.status === 400){
+                    Alert.alert("Não liberado!", "Pois Você já tem cartão de crédito!")
+
+                    api.get("creditcard/?account="+userAccount.id).then(function(response){
+                        console.log(response.data)
+                       setTimeout(()=> Alert.alert("Já foi Liberado pra você!","Limite: " +response.data.limit), 3000)
+                    }) 
+                }
             })
         } catch (error) {
             console.error(error)
+           
         }
     }
        

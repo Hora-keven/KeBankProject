@@ -4,7 +4,7 @@ import nfc from "./../assets/nfc.png"
 import * as Animatable from 'react-native-animatable';
 import { StyleSheet} from 'react-native';
 import flagCard from "./../assets/flagCard.png"
-import { ApiContext } from "../pages/context/APicontext";
+import { ApiContext }  from "./../context/APicontext";
 import { useContext } from "react";
 
 export default function Card(){

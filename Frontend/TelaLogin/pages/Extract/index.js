@@ -3,15 +3,17 @@ import styles from './styles'
 
 import { useContext, useEffect, useState } from 'react'
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
-import api from '../../Api/Api'
+import api from  '../../Api/Api'
 import * as Animatable from 'react-native-animatable'
 import { ApiContext } from '../../context/APicontext'
-import DropdownAnything from '../../../components/dropdownAnything';
+import DropdownAnything from '../../components/dropdownAnything';
+
+
 export default function ScreenExtract({ navigation }) {
     const { userAccount, loan } = useContext(ApiContext)
     const [movimentation, setMovimentation] = useState([])
     const [searchUser, setSearchUser] = useState("")
-
+    const [translateTitle, setTranslateTitle] = useState("")
     useEffect(() => {
         api.get("movimentation/?account=" + userAccount.id).then(function (response) {
             console.log(response.data)
@@ -29,16 +31,19 @@ export default function ScreenExtract({ navigation }) {
     }, [])
 
     const Historic = ({ title, value, date }) => (
-
+        
         <View style={styles.function}>
-            <Text style={styles.textT}>{title}</Text>
+            <Text style={styles.textT}>{
+                title 
+            }</Text>
             <Text style={styles.txt}>R${value}</Text>
-            <Text style={styles.txt}>{date.toString().replace("T", " ").replace(".705054Z"," ")}</Text>
+            <Text style={styles.txt}>{date}</Text>
            
             <MaterialCommunityIcons name={title == "received"?"transfer-up":"transfer-down"} size={30} style={{ color: "#155e85", bottom: 35 }} />
         </View>
 
     )
+
     const search = ()=>{
         api.get(`movimentation/?${loan}=` + searchUser).then(function (response) {
             console.log(response.data)
@@ -77,6 +82,7 @@ export default function ScreenExtract({ navigation }) {
                         <View style={styles.window}>
 
                             <View style={styles.containerTrans}>
+                               
                                 <Historic title={item.state} value={item.value} date={item.date} />
                             </View>
 

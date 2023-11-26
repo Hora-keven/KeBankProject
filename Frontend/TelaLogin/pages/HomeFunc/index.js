@@ -4,15 +4,16 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useState, useRef, useContext, useEffect } from "react";
 import { Modalize } from 'react-native-modalize';
 import { ScrollView } from "react-native";
-import pix from './../../../assets/pix.png'
 
-import extrato from './../../../assets/extrato.png'
-import emprestimo from './../../../assets/emprestimo.png'
-import cartao from './../../../assets/cartao.png'
+import pix from './../../assets/pix.png'
+import extrato from './../../assets/extrato.png'
+import emprestimo from './../../assets/emprestimo.png'
+import cartao from './../../assets/cartao.png'
 import api from "../../Api/Api";
+
 import * as Animatable from 'react-native-animatable'
 import * as ImagePicker from 'expo-image-picker';
-import { ApiContext } from "../../context/APicontext";
+import { ApiContext } from "./../../context/APicontext"; 
 
 export default function FirstScreen({ navigation }) {
     const [valor, setValor] = useState("R$ -------")
@@ -21,14 +22,14 @@ export default function FirstScreen({ navigation }) {
     const [imageG, setImageG] = useState('')
     const [imageJ, setImageJ] = useState('')
     const [isGalleryOrCamera, setIsGaleryOrCamera] = useState(false)
-    const{user, userAccount} = useContext(ApiContext)
+    const {user, userAccount} = useContext(ApiContext)
     const [limit, setLimit] = useState("")
 
     useEffect(()=>{
         api.get(`account/?${(user.cpfCnpj).length == 11? "physical_person="+user.cpfCnpj:"juridic_person="+user.cpfCnpj}`).then(function(response){
             setLimit(response.data[0].limit)
         })
-    },[])
+    })
     const funcaoApp = [
         {
             id: 1,
@@ -136,7 +137,7 @@ export default function FirstScreen({ navigation }) {
             <Modalize ref={modalizeRef} modalHeight={350} modalStyle={styles.modal} animationType="fade">
                 <View style={styles.confirm}>
                     <Text style={{fontSize:20, left:10, color:"white"}}>Escolha a foto de usuário: </Text>
-                    <View style={styles.cameraOuGaleria}>
+                    <View style={styles.cameraOuGalery}>
                         <TouchableOpacity  style={{left:-30, position:"relative"}} onPress={camera}>
                             <Text style={{fontSize:15, left:-2, color:"white"}}>Camera</Text>
                             <MaterialIcons
@@ -201,7 +202,7 @@ export default function FirstScreen({ navigation }) {
                         }} />
 
                     <View style={styles.slides}>
-                        <Image source={require('../../../assets/dolar.png')}
+                        <Image source={require('../../assets/dolar.png')}
                             style={styles.imgSlides} />
                         <Text style={{ fontSize: 20, top: 15, color: 'white' }}>Cotação do Dólar</Text>
                         <Text style={styles.Api}>A Cotação do dólar está ${dolar}</Text>

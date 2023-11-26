@@ -1,5 +1,5 @@
 import {Dropdown} from "react-native-element-dropdown";
-import { ApiContext } from "../pages/context/APicontext";
+import { ApiContext }  from "./../context/APicontext";
 import { useContext } from "react";
 
 function DropdownChoice({quanti}){
