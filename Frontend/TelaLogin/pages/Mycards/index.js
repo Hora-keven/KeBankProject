@@ -19,7 +19,6 @@ export default function ScreenCards({ navigation }) {
                     account:userAccount.id
 
             }).then(function(response){
-                console.log(response.data.account)
                 api.get("creditcard/?account="+response.data.account).then(function(response){
                    
                     Alert.alert("Liberado pra você!","Limite: " +response.data[0].limit)
@@ -29,8 +28,8 @@ export default function ScreenCards({ navigation }) {
                     Alert.alert("Não liberado!", "Pois Você já tem cartão de crédito!")
 
                     api.get("creditcard/?account="+userAccount.id).then(function(response){
-                        console.log(response.data)
-                       setTimeout(()=> Alert.alert("Já foi Liberado pra você!","Limite: " +response.data.limit), 3000)
+                       
+                       setTimeout(()=> Alert.alert("Já foi Liberado pra você!","Limite: " +response.data[0].limit), 3000)
                     }) 
                 }
             })

@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import styles from './stylesP'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Alert } from 'react-native';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import { TextInputMask } from 'react-native-masked-text'
 import { Modalize } from 'react-native-modalize';
 import api from  '../../Api/Api';
@@ -13,7 +13,7 @@ export default function ScreenPix({ navigation }) {
     const [keyPix, setKeyPix] = useState("")
     const[value,setValue]=useState("")
     const {userAccount} = useContext(ApiContext)
-   
+    const [pixMovimentation, setPixMovimentation] = useState([])
 
     const noMaskPix = keyPix.replace(/\.|-/gm, "")
     const maskValue = value.replace("R$", "").replace(/\./g, '');
@@ -61,6 +61,22 @@ export default function ScreenPix({ navigation }) {
         }
     
     }
+    useEffect(() => {
+        api.get("pix/?from_account=" + userAccount.id).then(function (response) {
+            console.log(response.data)
+
+            const newObjects = response.data.map(each => ({
+                name: each.to_account_name.name == null?each.to_account_name.Company_name:each.to_account_name.name,
+
+                cpf_cnpj: each.to_account_name.cpf == null?each.to_account_name.cnpj:each.to_account_name.cpf,
+
+            }));
+
+
+            setPixMovimentation(newObjects);
+
+        })
+    }, [])
 
     const modalizeRef = useRef(<Modalize />);
 
@@ -87,6 +103,16 @@ export default function ScreenPix({ navigation }) {
           
         })
     }
+
+    const Contacts = ({ title, cpf_cnpj }) => (
+        
+        <View style={styles.function}>
+            <Text style={styles.textT}>Nome: {title}</Text>
+            <Text style={styles.txt}>{cpf_cnpj.length == 11?`Cpf: ${cpf_cnpj}`:`Cnpj: ${cpf_cnpj}`}</Text>
+         
+        </View>
+
+    )
     return (
 
         <ScrollView style={{ backgroundColor: 'white' }}>
@@ -113,6 +139,21 @@ export default function ScreenPix({ navigation }) {
                         <Ionicons size={40} name="ios-arrow-forward" />
                     </TouchableOpacity>
                 </View>
+                <View style={{width:"100%", display:"flex", justifyContent:"center", alignItems:"center", top:150, position:"relative"}}>
+                    <Text style={{fontSize:23}}>Contatos cadastrados</Text>
+                </View>
+                <ScrollView style={{marginTop:199}}>
+                    {pixMovimentation.map((item) =>
+                        <View style={styles.window}>
+
+                            <View style={styles.containerTrans}>
+                               
+                                <Contacts title={item.name} cpf_cnpj={item.cpf_cnpj} />
+                            </View>
+
+                        </View>
+                    )}
+                </ScrollView>
 
                 <Modalize ref={modalizeRef} modalHeight={500} modalStyle={styles.modal}>
                     <View style={styles.confirm}>
@@ -145,7 +186,7 @@ export default function ScreenPix({ navigation }) {
             
                 <View style={styles.nameSlogan}>
                     <View style={styles.title}>
-                        <Text style={styles.txt}>Ke</Text>
+                        <Text style={[styles.txt, {left:0, fontWeight:700,}]}>Ke</Text>
                         <Text style={styles.secondPartName}>Bank</Text>
                     </View>
                 </View>

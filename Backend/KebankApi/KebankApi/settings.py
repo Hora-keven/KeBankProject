@@ -69,6 +69,16 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+     'DEFAULT_THROTTLE_CLASSES': [
+       
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1/minute',
+        'user': '1/minute',
+        'user_minute':"3/minute"
+       
+    }
 }
 
 MIDDLEWARE = [
@@ -80,7 +90,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'Kebank.middleware.RequestLimitMiddleware',
+  
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -92,9 +102,6 @@ CORS_ALLOWED_ORIGINS = [
 
 ROOT_URLCONF = 'KebankApi.urls'
 
-SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-}
 
 AUTH_USER_MODEL = 'Kebank.User'
 TEMPLATES = [

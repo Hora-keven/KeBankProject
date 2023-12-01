@@ -50,7 +50,7 @@ class User(AbstractBaseUser):
     
     first_name = models.CharField(max_length=100, blank=False)
     surname = models.CharField(max_length=100,  blank=True, null=True)
-    cpf_cnpj = models.CharField(max_length=30, unique=True,  blank=True)
+    cpf_cnpj = models.CharField(max_length=30, unique=True,  blank=False)
     email = models.EmailField(max_length=100, unique=True, blank=False)
     phone_number = models.CharField(max_length=11, blank=False)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -59,7 +59,6 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_admin =  models.BooleanField(default=False)
     is_active =  models.BooleanField(default=True)
-    is_staff=  models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
   
     objects = UserManager()

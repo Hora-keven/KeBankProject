@@ -84,13 +84,6 @@ class CardViewSet(viewsets.ModelViewSet):
 
         return Response(data=card_serializer.data,status=status.HTTP_201_CREATED)
     
-       
-     
-        
-      
-    
-       
-    
 
 class LoanViewSet(viewsets.ModelViewSet):
     serializer_class = LoanSerializer
@@ -202,7 +195,7 @@ class PixViewSet(viewsets.ModelViewSet):
             
             return Response(pix_serializer.data, status=status.HTTP_201_CREATED)
         
-        return Exception("Error")
+        return Response(status=status.HTTP_400_BAD_REQUEST)
     
     
 class InvestmentViewSet(viewsets.ModelViewSet):
@@ -230,7 +223,7 @@ class InvestmentViewSet(viewsets.ModelViewSet):
                 state = "Investimento não aprovado"
                 )
             movimetation.save()
-            raise Exception("Your contribuition is more than your limit")
+            return Response({"detail":"Your contribuition is more than your limit"}, status=status.HTTP_400_BAD_REQUEST)
 
      
         investment.account.limit -= investment.contribuition
@@ -275,7 +268,7 @@ class CreditCardViewSet(viewsets.ModelViewSet):
         elif credit_card.account.limit <= 500:
             credit_card.limit =credit_card.account.limit * Decimal( 0.2)
         else:
-            raise Exception("credit card is not aprroved")
+            return Response({"detail":"credit card is not aprroved"}, status=status.HTTP_400_BAD_REQUEST)
 
         credit_card_serializer = CreditCardSerializer(data=data)
 
@@ -286,4 +279,3 @@ class CreditCardViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_201_CREATED)
         
         return super().create(request, *args, **kwargs)
-

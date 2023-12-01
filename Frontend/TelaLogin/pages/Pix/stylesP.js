@@ -11,12 +11,13 @@ const styles = StyleSheet.create({
       width:'100%',
       height:890
     },
+    
     txt:{
-      
-        textAlign:'center',
+        
+        left:34,
         fontSize:20,
         color:'black',
-        fontWeight:'700',
+       
  
     },
     title:{
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
         alignItems:'flex-end',
         width:'100%', 
         right:30,
-        top:350,
+        bottom:10,
      
     
     },
@@ -43,28 +44,18 @@ const styles = StyleSheet.create({
         left:10,
         color:'black'
     },
-   
     inputs:{
         width:'85%',
-       bottom:20,
+        top:110
 
     },
     input:{
        borderBottomWidth:1,
-       borderBottomColor:'white',
-       width:'100%',
-       color:"white"
+       borderBottomColor:'black',
+       width:'98%',
     
     },
-    button:{
-        position:"relative",
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        width:60,
-        left:179,
-        top:25
-    },
+   
 
     img:{
         width:50,
@@ -73,10 +64,10 @@ const styles = StyleSheet.create({
    
     rectangle:{
         width:'88%',
-        height:'6%',
+        height:'7%',
         backgroundColor:'#155e85',
         borderRadius:8,
-       
+        marginTop:50,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -85,20 +76,33 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        bottom:300
 
     },
   
     window:{
-        width:'88%',
-        height:'60%',
-        top:50,
-        margin:0,
         justifyContent:'center',
         alignItems:'center',
-      
+        height:90,
+        width:350, 
+    },
+    textT:{
+     
+        fontSize:20,
+        top:4,
+        left:30,
+        color:'black'
     },
 
+    function:{
+        marginTop:5,
+        backgroundColor:'white',
+        width:300,
+        height:70, 
+        margin:0,
+        borderRadius:7,
+        borderLeftWidth:2,
+        
+    },
     text:{
       
         fontSize:23,
@@ -107,7 +111,10 @@ const styles = StyleSheet.create({
         color:'white'
   
     },
+    textTitle:{
+        fontSize:27,
 
+    },
     function:{
         marginTop:10,
         width:350,
@@ -119,17 +126,14 @@ const styles = StyleSheet.create({
    
     
     Arrowbutton:{
-   
-        fontSize:32,
+ 
+        fontSize:22,
         left:155,
-        top:10,
+        top:145,
         position:'relative'
       
     },
-    textTitle:{
-        fontSize:23,
-        top:10,
-    },
+   
     modal:{
         backgroundColor:'#155e85',
         alignItems:'center',
