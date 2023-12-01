@@ -6,7 +6,7 @@ from decimal import Decimal
 from Kebank.Api.number_rand import number_random
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
-from rest_framework.filters import SearchFilter
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 class PhysicalPersonViewSet(viewsets.ModelViewSet):
     serializer_class = PhysicalPersonSerializer
@@ -14,16 +14,16 @@ class PhysicalPersonViewSet(viewsets.ModelViewSet):
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = [ "cpf"]
-    
+  
 class JuridicPersonViewSet(viewsets.ModelViewSet):
     serializer_class = JuridicPersonSerializer
     queryset = JuridicPerson.objects.all()
-
+   
     
 class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
     queryset = Account.objects.all()
-
+    throttle_classes = [UserRateThrottle]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["id", "physical_person", "juridic_person"]
     
@@ -40,7 +40,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         )
        
         
-        if data["physical_person"] == None:
+        if account.physical_person:
             account.juridic_person = JuridicPerson.objects.get(cnpj=data["juridic_person"])
         
         else:
@@ -60,7 +60,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 class AddressViewSet(viewsets.ModelViewSet):
     serializer_class = AddressSerialzer
     queryset = Address.objects.all()
-    
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
     
 class CardViewSet(viewsets.ModelViewSet):
     serializer_class = CardSerializer
@@ -88,7 +88,7 @@ class CardViewSet(viewsets.ModelViewSet):
 class LoanViewSet(viewsets.ModelViewSet):
     serializer_class = LoanSerializer
     queryset = Loan.objects.all()
-    
+ 
     def create(self, request, *args, **kwargs):
         data = request.data
         loan = Loan(
@@ -114,7 +114,7 @@ class LoanViewSet(viewsets.ModelViewSet):
             movimentation = Movimentation(
                 value = loan.requested_amount,
                 account = Account.objects.get(id=loan.account.id),
-                state = "loan not approved"
+                state = "Empréstimo não aprovado!"
             )
             
             movimentation.save()
@@ -125,7 +125,7 @@ class LoanViewSet(viewsets.ModelViewSet):
         movimentation = Movimentation(
                 value = loan.requested_amount,
                 account = Account.objects.get(id=loan.account.id),
-                state = "loan successfully"
+                state = "Empréstimo realizado com sucesso!"
             )
         
             
@@ -154,7 +154,7 @@ class PixViewSet(viewsets.ModelViewSet):
     queryset = Pix.objects.all()
 
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["from_account"]
+    filterset_fields = ["from_account", "to_account"]
     
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -166,7 +166,7 @@ class PixViewSet(viewsets.ModelViewSet):
         )
       
         if pix.value > pix.from_account.limit:
-            return Response("Value is bigger than your limit", status=status.HTTP_404_NOT_FOUND)
+            return Response({"detail":"valor solicitado é maior que o seu limite"}, status=status.HTTP_404_NOT_FOUND)
             
         else:
             pix.from_account.limit -= pix.value
@@ -193,11 +193,11 @@ class PixViewSet(viewsets.ModelViewSet):
             pix.to_account.save()
             pix.save()
             
-            return Response(pix_serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data=pix_serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
-    
+   
 class InvestmentViewSet(viewsets.ModelViewSet):
     serializer_class = InvestmentSerializer
     queryset = Investment.objects.all()
@@ -223,7 +223,7 @@ class InvestmentViewSet(viewsets.ModelViewSet):
                 state = "Investimento não aprovado"
                 )
             movimetation.save()
-            return Response({"detail":"Your contribuition is more than your limit"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail":"valor solicitado é maior que o seu limite!"}, status=status.HTTP_400_BAD_REQUEST)
 
      
         investment.account.limit -= investment.contribuition
@@ -232,7 +232,7 @@ class InvestmentViewSet(viewsets.ModelViewSet):
         movimetation = Movimentation(
           value = (-investment.contribuition),
           account = investment.account,
-          state = "Investimento realizado com sucesso"
+          state = "Investimento realizado com sucesso!"
         )
         
         if invest_serializer.is_valid():
@@ -268,7 +268,7 @@ class CreditCardViewSet(viewsets.ModelViewSet):
         elif credit_card.account.limit <= 500:
             credit_card.limit =credit_card.account.limit * Decimal( 0.2)
         else:
-            return Response({"detail":"credit card is not aprroved"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail":"cartão de crédtio não aprovado!"}, status=status.HTTP_400_BAD_REQUEST)
 
         credit_card_serializer = CreditCardSerializer(data=data)
 

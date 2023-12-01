@@ -29,7 +29,7 @@ export default function ScreenCards({ navigation }) {
 
                     api.get("creditcard/?account="+userAccount.id).then(function(response){
                        
-                       setTimeout(()=> Alert.alert("Já foi Liberado pra você!","Limite: " +response.data[0].limit), 3000)
+                       setTimeout(()=> Alert.alert("Já foi liberado pra você!","Limite: " +response.data[0].limit), 3000)
                     }) 
                 }
             })
@@ -40,8 +40,6 @@ export default function ScreenCards({ navigation }) {
     }
        
        
-    
- 
     return (
         <ScrollView>
             <View style={styles.container}>

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         alignItems:'flex-end',
         width:'100%', 
         right:30,
-        bottom:10,
+        top:350,
      
     
     },
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     inputs:{
         width:'85%',
-        top:110
+        bottom:40
 
     },
     input:{
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         height:'7%',
         backgroundColor:'#155e85',
         borderRadius:8,
-        marginTop:50,
+        bottom:310,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
  
         fontSize:22,
         left:155,
-        top:145,
         position:'relative'
       
     },

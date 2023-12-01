@@ -78,7 +78,7 @@ class User(AbstractBaseUser):
     
  
 class PhysicalPerson(models.Model):
-    fk_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="legal_person_User")
+    fk_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="legal_person_User")
     born_date = models.DateField(null=False, blank=False)
     cpf = models.CharField(max_length=11, blank=False, primary_key=True, unique=True)
     rg = models.CharField(max_length=9, blank=False, unique=True)
@@ -92,7 +92,7 @@ class PhysicalPerson(models.Model):
     
     
 class JuridicPerson(models.Model):
-    fk_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="juridic_person_User")
+    fk_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="juridic_person_User")
     state_registration = models.CharField(max_length=11)
     open_date = models.DateField(null=False, blank=False)
     cnpj = models.CharField(max_length=14, primary_key=True, unique=True)

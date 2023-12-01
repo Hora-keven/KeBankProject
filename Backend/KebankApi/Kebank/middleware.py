@@ -13,7 +13,7 @@ class RequestLimitMiddleware:
 
         request_count = cache.get(cache_key, 0)
 
-        request_limit = 10
+        request_limit = 1
 
         if request_count >= request_limit:
             return HttpResponseForbidden("Limite de requisições atingido. Tente novamente mais tarde.")

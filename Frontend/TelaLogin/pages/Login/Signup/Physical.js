@@ -126,7 +126,7 @@ export default function Physical({ navigation }) {
                 api.post('auth/token/login/',{
                     cpf_cnpj:cpf,
                     password:password
-        
+    
               }).then(function(response){
                 tokenUser(response.data.auth_token)
                 

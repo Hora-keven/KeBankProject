@@ -97,7 +97,7 @@ export default function ScreenLoan({navigation}) {
     }
 
     return (
-        <ScrollView>
+   
             <View style={styles.container}>
                 <View style={styles.rectangle}>
                     <Text style={styles.text}>Empréstimo</Text>
@@ -112,7 +112,7 @@ export default function ScreenLoan({navigation}) {
                         renderItem={({ item }) => {
                          
                             return (
-                                <ScrollView>
+                             
                                     <View style={styles.containerTrans}>
                                         <TouchableOpacity onPress={()=>{
                                             openModal()
@@ -122,7 +122,7 @@ export default function ScreenLoan({navigation}) {
                                             <Historico title={item.name} />
                                         </TouchableOpacity>
                                     </View>
-                                </ScrollView>
+                               
                             );
                         }} />
                 </SafeAreaView>
@@ -163,6 +163,7 @@ export default function ScreenLoan({navigation}) {
                     </View>
                 </Modalize>
             </View>
-        </ScrollView>
+  
+      
     );
 }

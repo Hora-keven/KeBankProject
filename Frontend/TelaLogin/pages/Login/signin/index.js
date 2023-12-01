@@ -28,7 +28,7 @@ export default function LoginUser({ navigation }) {
             try {
                 api.defaults.headers.Authorization = `Token ${response.data.auth_token}`
                 api.get("users/me/").then(function(response){
-                    console.log(response.data.username)
+                 
                     userLog(response.data.id, response.data.first_name, response.data.email, response.data.cpf_cnpj )
                   
                 })

@@ -63,22 +63,21 @@ REST_FRAMEWORK = {
     
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-         'rest_framework.authentication.BasicAuthentication',
-         'rest_framework.authentication.SessionAuthentication',
+        "rest_framework.authentication.BasicAuthentication"
+     
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
-     'DEFAULT_THROTTLE_CLASSES': [
-       
+       'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '1/minute',
-        'user': '1/minute',
-        'user_minute':"3/minute"
-       
+        'anon': '1/day',
+        'user': '1/day'
     }
+   
 }
 
 MIDDLEWARE = [
@@ -90,7 +89,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-  
+    "Kebank.middleware.RequestLimitMiddleware"
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 

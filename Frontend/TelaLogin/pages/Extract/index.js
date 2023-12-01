@@ -40,7 +40,7 @@ export default function ScreenExtract({ navigation }) {
             <Text style={styles.txt}>R${value}</Text>
             <Text style={styles.txt}>{date}</Text>
            
-            <MaterialCommunityIcons name={title == "received"?"transfer-up":"transfer-down"} size={30} style={{ color: "#155e85", bottom: 35 }} />
+            <MaterialCommunityIcons name={title == "Transferência enviada"?"transfer-up":"transfer-down"} size={30} style={{ color: "#155e85", bottom: 35 }} />
         </View>
 
     )
