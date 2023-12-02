@@ -6,27 +6,40 @@ from decimal import Decimal
 from Kebank.Api.number_rand import number_random
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+from djoser.views import UserViewSet as DjoserUserViewSet
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+
+class UserViewSet(DjoserUserViewSet):
+    authentication_classes = [TokenAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated, AllowAny] 
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
 
 class PhysicalPersonViewSet(viewsets.ModelViewSet):
     serializer_class = PhysicalPersonSerializer
     queryset = PhysicalPerson.objects.all()
-
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = [ "cpf"]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
   
 class JuridicPersonViewSet(viewsets.ModelViewSet):
     serializer_class = JuridicPersonSerializer
     queryset = JuridicPerson.objects.all()
-   
-    
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
 class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
     queryset = Account.objects.all()
-    throttle_classes = [UserRateThrottle]
+    authentication_classes = [TokenAuthentication]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["id", "physical_person", "juridic_person"]
-    
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+
     def create(self, request, *args, **kwargs):
         data = request.data
       
@@ -60,14 +73,18 @@ class AccountViewSet(viewsets.ModelViewSet):
 class AddressViewSet(viewsets.ModelViewSet):
     serializer_class = AddressSerialzer
     queryset = Address.objects.all()
-    throttle_classes = [UserRateThrottle, AnonRateThrottle]
-    
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
 class CardViewSet(viewsets.ModelViewSet):
     serializer_class = CardSerializer
     queryset=Card.objects.all()
-
+    authentication_classes = [TokenAuthentication]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["account"]
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -88,7 +105,10 @@ class CardViewSet(viewsets.ModelViewSet):
 class LoanViewSet(viewsets.ModelViewSet):
     serializer_class = LoanSerializer
     queryset = Loan.objects.all()
- 
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+
     def create(self, request, *args, **kwargs):
         data = request.data
         loan = Loan(
@@ -145,17 +165,20 @@ class LoanViewSet(viewsets.ModelViewSet):
 class MovimentationViewSet(viewsets.ModelViewSet):
     serializer_class = MovimentationSerializer
     queryset = Movimentation.objects.all()
-    
+    authentication_classes = [TokenAuthentication]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["account", "state", "date_hour"]
-    
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
 class PixViewSet(viewsets.ModelViewSet):
     serializer_class = PixSerializer
     queryset = Pix.objects.all()
-
+    authentication_classes = [TokenAuthentication]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["from_account", "to_account"]
-    
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+
     def create(self, request, *args, **kwargs):
         data = request.data
       
@@ -201,6 +224,9 @@ class PixViewSet(viewsets.ModelViewSet):
 class InvestmentViewSet(viewsets.ModelViewSet):
     serializer_class = InvestmentSerializer
     queryset = Investment.objects.all()
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
     
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -246,10 +272,12 @@ class InvestmentViewSet(viewsets.ModelViewSet):
 class CreditCardViewSet(viewsets.ModelViewSet):
     serializer_class = CreditCardSerializer
     queryset = CreditCard.objects.all()
-
+    authentication_classes = [TokenAuthentication]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["account"]
-    
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+
     def create(self, request, *args, **kwargs):
         data = request.data
         number = number_random(a=100000000000, b=1000000000000)

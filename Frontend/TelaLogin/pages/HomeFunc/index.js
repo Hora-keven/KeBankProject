@@ -14,6 +14,7 @@ import api from "../../Api/Api";
 import * as Animatable from 'react-native-animatable'
 import * as ImagePicker from 'expo-image-picker';
 import { ApiContext } from "./../../context/APicontext"; 
+import Loading from "../../components/loading";
 
 export default function FirstScreen({ navigation }) {
     const [valor, setValor] = useState("R$ -------")
@@ -24,10 +25,12 @@ export default function FirstScreen({ navigation }) {
     const [isGalleryOrCamera, setIsGaleryOrCamera] = useState(false)
     const {user, userAccount} = useContext(ApiContext)
     const [limit, setLimit] = useState("")
+    const [loading, setLoading]=useState(true)
 
     useEffect(()=>{
         api.get(`account/?${(user.cpfCnpj).length == 11? "physical_person="+user.cpfCnpj:"juridic_person="+user.cpfCnpj}`).then(function(response){
             setLimit(response.data[0].limit)
+            setLoading(false)
         })
     })
     const funcaoApp = [
@@ -57,6 +60,9 @@ export default function FirstScreen({ navigation }) {
         },
        
     ]
+    if(loading){
+        <Loading />
+    }
 
     const Funcoes = ({ title, img }) => (
         <View style={styles.function}>
@@ -133,7 +139,7 @@ export default function FirstScreen({ navigation }) {
     }
 
     return (
-        <ScrollView>
+        <View style={styles.container}>
             <Modalize ref={modalizeRef} modalHeight={350} modalStyle={styles.modal} animationType="fade">
                 <View style={styles.confirm}>
                     <Text style={{fontSize:20, left:10, color:"white"}}>Escolha a foto de usuário: </Text>
@@ -158,7 +164,7 @@ export default function FirstScreen({ navigation }) {
                     </View>
                 </View>
             </Modalize>
-            <View style={styles.container}>
+           
                 <View style={styles.information}>
                     <View style={styles.containerImg}>
                         <TouchableOpacity onPress={abrirModal}>
@@ -185,7 +191,7 @@ export default function FirstScreen({ navigation }) {
                     </TouchableOpacity>
 
                 </View>
-                <SafeAreaView style={styles.window}>
+                <View style={styles.window} >
                     <FlatList
                         horizontal={false}
                         numColumns={2}
@@ -213,10 +219,8 @@ export default function FirstScreen({ navigation }) {
                             <Text style={styles.secondPartName}>Bank</Text>
                         </View>
                     </View>
-                </SafeAreaView>
+                </View>
 
-            </View>
-
-        </ScrollView>
+        </View>
     );
 }

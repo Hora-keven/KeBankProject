@@ -18,6 +18,7 @@ export default function ScreenExtract({ navigation }) {
     useEffect(() => {
         api.get("movimentation/?account=" + userAccount.id).then(function (response) {
             console.log(response.data)
+            
             const newObjects = response.data.map(each => ({
                 value: each.value,
                 state: each.state,

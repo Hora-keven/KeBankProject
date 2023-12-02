@@ -11,6 +11,16 @@ date_future = date_actual + timedelta(days=365 * 5)
 fuso_horario = pytz.timezone('America/Sao_Paulo')
 date_future_timezone = date_future.astimezone(fuso_horario)
 
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "cpf_cnpj", "first_name", "surname", "is_active","password"]
+        
+    password = serializers.CharField(write_only=True)
+   
+
 class AddressSerialzer(serializers.ModelSerializer):
     class Meta:
       model = Address

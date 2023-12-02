@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         width:'100%', 
-        bottom:130,
+        bottom:120,
         left:125
     },
     secondPartName:{
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     display:"flex",
     alignItems:"center", 
     justifyContent:"center",
-    bottom:285,
+    bottom:255,
     backgroundColor:"#155e85",
     borderRadius:8,
  
@@ -110,6 +110,8 @@ const styles = StyleSheet.create({
         alignItems:"center",
         width:450,
         height:600,
+        position:"relative",
+        top:10
      
       
         
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
         height:'10%',
         backgroundColor:'#155e85',
         borderRadius:8,
-        bottom:659,
+        bottom:559,
         position:'absolute',
         shadowColor: "#000",
         shadowOffset: {
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
 
     },
     txtInformation:{
-        fontFamily:'inter',
+     
         fontSize:20,
         left:20,
         top:10,
@@ -151,9 +153,8 @@ const styles = StyleSheet.create({
     },
 
     text:{
-        fontFamily:'sans-serif',
+      
         fontSize:18,
-       
         textAlign:'center',
         color:'#155e85'
        
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#155e85',
         width:"99%",
         height:"40%",
-        bottom:169,
+        bottom:129,
         borderRadius:7,
         position:'relative',
         alignItems:'center',

@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
         width:70,
         height:'13%',
         position:'relative',
-        bottom:300,
-        right:245,
+     
         backgroundColor:'#155e85',
         borderRadius:35,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        display:"flex"
     },
   
     window:{

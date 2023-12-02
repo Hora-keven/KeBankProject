@@ -43,17 +43,26 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "djoser",
     'corsheaders',
-    "django_filters"
+    "django_filters",
+    
    
 ]
-# settings.py
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        'LOCATION': 'unique-snowflake',
-    }
+DJOSER = {
+    'SERIALIZERS': {
+        'user': 'Kebank.Api.serializers.UserSerializer',
+        'user_create': 'Kebank.Api.serializers.UserSerializer',
+    },
+    'PERMISSIONS': {
+        'user_list': [ "rest_framework.permissions.AllowAny"],
+        'user': [ "rest_framework.permissions.AllowAny"],
+    },
+    'AUTHENTICATION_CLASSES': [
+          'rest_framework.authentication.TokenAuthentication',
+           'rest_framework.authentication.BasicAuthentication',
+    ]
 }
+
 
 REST_FRAMEWORK = {
     
@@ -63,22 +72,24 @@ REST_FRAMEWORK = {
     
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        "rest_framework.authentication.BasicAuthentication"
-     
+        'rest_framework.authentication.BasicAuthentication',
+        
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny'
+      
     ),
        'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '1/day',
-        'user': '1/day'
+        'anon': '3/minutes',
+        'user': '20/minutes'
     }
    
 }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,7 +100,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    "Kebank.middleware.RequestLimitMiddleware"
+    
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -98,6 +109,8 @@ CORS_ALLOWED_ORIGINS = [
    
   
 ]
+
+
 
 ROOT_URLCONF = 'KebankApi.urls'
 
