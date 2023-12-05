@@ -174,28 +174,42 @@ export default function Juridic({ navigation }) {
             </View>
         
             <View style={styles.inputs}>
-            <TextInput style={styles.input} value={name} onChangeText={(text)=>setName(text)} placeholder="Put the company name:" placeholderTextColor={'white'} />
-                <TextInput style={styles.input} value={openDate} onChangeText={(text)=>setOpenDate(text)} placeholder="Put your open date: " placeholderTextColor={'white'} />
-                <TextInput style={styles.input} value={number} onChangeText={(text)=>setNumber(text)} placeholder="Put your telephone number: " placeholderTextColor={'white'} />
+            <TextInput style={styles.input} value={name} onChangeText={(text)=>setName(text)} placeholder="Digite o nome da empresa:" placeholderTextColor={'white'} />
+                <TextInput style={styles.input} value={openDate} onChangeText={(text)=>setOpenDate(text)} placeholder="DIgite a data de abertura: " placeholderTextColor={'white'} />
+                <TextInputMask
+                    style={styles.input}
+                    type={'cel-phone'}
+                    placeholder={"Digite seu número de telefone:"}
+                    placeholderTextColor={"white"}
+                    options={{
+                        maskType: 'BRL',
+                        withDDD: true,
+                        dddMask: '(99) '
+                    }}
+                    value={number}
+                    onChangeText={text => {
+                      setNumber(text)
+                    }}
+                />
                 
                 <TextInputMask 
                 type='cnpj'
                 style={styles.input
                 } value={cnpj} 
                 onChangeText={(text)=>setCnpj(text)}  
-                placeholder="Put your CNPJ:"
+                placeholder="Digite seu CNPJ:"
                 placeholderTextColor={"white"}/>
 
-                <TextInput style={styles.input} maxLength={10} value={stateRegistration} onChangeText={(text)=>setStateRegistration(text)} placeholder="Put your state registration: "  placeholderTextColor={'white'} />
-                <TextInput style={styles.input} value={email} onChangeText={setEmail} placeholder="Put your E-mail: " placeholderTextColor={'white'} />
-                <TextInput style={styles.input} secureTextEntry={true} value={password} onChangeText={(text)=>setPassword(text)} maxLength={40} placeholder="Create your password: " placeholderTextColor={'white'} />
-                <TextInput style={[styles.input, {width:210}]}  value={pac} onChangeText={(text)=>setPac(text)} placeholder="Put your pac: " placeholderTextColor={'white'} />
+                <TextInput style={styles.input} maxLength={10} value={stateRegistration} onChangeText={(text)=>setStateRegistration(text)} placeholder="Digite seu registro de estado: "  placeholderTextColor={'white'} />
+                <TextInput style={styles.input} value={email} onChangeText={setEmail} placeholder="Digite seu E-mail: " placeholderTextColor={'white'} />
+                <TextInput style={styles.input} secureTextEntry={true} value={password} onChangeText={(text)=>setPassword(text)} maxLength={40} placeholder="Crie sua senha: " placeholderTextColor={'white'} />
+                <TextInput style={[styles.input, {width:210}]}  value={pac} onChangeText={(text)=>setPac(text)} placeholder="Digite seu CEP: " placeholderTextColor={'white'} />
 
                 <View style={{position:"relative", left:227, bottom:27.5}}>
                     <TouchableOpacity onPress={searchPac} style={{borderRadius:2, borderWidth:1, borderColor:"white", padding:4, width:60}}><Text style={{color:"white"}}>Buscar</Text></TouchableOpacity>
                 </View>
 
-                <TextInput style={[styles.input, {position:"relative", bottom:30}]} value={public_place} onChangeText={(text)=>setPublic_space(text)} placeholder="Put your public space: " placeholderTextColor={'white'} />
+                <TextInput style={[styles.input, {position:"relative", bottom:30}]} value={public_place} onChangeText={(text)=>setPublic_space(text)} placeholder="Complemento: " placeholderTextColor={'white'} />
             </View>
             <View>
                 <TouchableOpacity onPress={createAccount} style={[styles.Arrowbutton, {top:170, left:130}]}>

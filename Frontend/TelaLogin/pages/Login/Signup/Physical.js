@@ -206,16 +206,16 @@ export default function Physical({ navigation }) {
                     style={styles.input
                     } value={cpf}
                     onChangeText={(text) => setCpf(text)}
-                    placeholder="Put your CPF:"
+                    placeholder="Digite seu CPF:"
                     placeholderTextColor={"white"} />
 
-                <TextInput style={styles.input} value={rg} onChangeText={(text) => setRg(text)} placeholder="Put your Rg: " placeholderTextColor={'white'} />
-                <TextInput style={[styles.input, { width: 200 }]} value={pac} onChangeText={(text) => setPac(text)} placeholder="Put your pac: " placeholderTextColor={'white'} />
+                <TextInput style={styles.input} value={rg} onChangeText={(text) => setRg(text)} placeholder="Digite seu Rg: " placeholderTextColor={'white'} />
+                <TextInput style={[styles.input, { width: 200 }]} value={pac} onChangeText={(text) => setPac(text)} placeholder="Digite seu CEP: " placeholderTextColor={'white'} />
 
                 <View style={{ position: "relative", left: 215, bottom: 27.5 }}>
                     <TouchableOpacity onPress={searchPac} style={{ borderRadius: 2, borderWidth: 1, borderColor: "white", padding: 4, width: 60 }}><Text style={{ color: "white" }}>Buscar</Text></TouchableOpacity>
                 </View>
-                <TextInput style={[styles.input, { position: "relative", bottom: 32 }]} value={public_place} onChangeText={(text) => setPublic_space(text)} placeholder="Put your public space: " placeholderTextColor={'white'} />
+                <TextInput style={[styles.input, { position: "relative", bottom: 32 }]} value={public_place} onChangeText={(text) => setPublic_space(text)} placeholder="Complemento: " placeholderTextColor={'white'} />
             </View>
             <View style={{ top: 130, position: "relative" }}>
                 <DropdownChoice />

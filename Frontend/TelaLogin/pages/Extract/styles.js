@@ -84,7 +84,9 @@ const styles = StyleSheet.create({
         alignItems:'center',
         height:100,
         width:350, 
-      
+        display:"flex",
+        gap:12,
+        
     },
 
     text:{
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
         marginTop:5,
         backgroundColor:'white',
         width:300,
-        height:70, 
+        height:120, 
         margin:0,
         borderRadius:7,
         borderLeftWidth:2,
