@@ -72,14 +72,7 @@ export default function Physical({ navigation }) {
 
                                         )
 
-                                        api.post("card/", {
-                                            account: response.data[0].id
-
-                                        }).then(function (response) {
-                                            cardUserLog(response.data.number, response.data.validity)
-
-                                            navigation.navigate("First")
-                                        })
+                                       navigation.navigate("First")
 
                                     }).catch(function (error) {
                                         console.error(error)

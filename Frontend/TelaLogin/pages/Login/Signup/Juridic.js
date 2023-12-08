@@ -12,7 +12,7 @@ import api from "./../../../Api/Api.jsx";
 
 
 export default function Juridic({ navigation }) {
-    const { token, userLog, tokenUser, user, optionAccount, informationsAccountUser, cardUserLog} = useContext(ApiContext)
+    const { token, userLog, tokenUser, user, optionAccount, informationsAccountUser} = useContext(ApiContext)
     const [openDate, setOpenDate] = useState("")
     const [cnpj, setCnpj] = useState("")
     const [stateRegistration, setStateRegistration] = useState("")
@@ -88,12 +88,13 @@ export default function Juridic({ navigation }) {
                             type_account:optionAccount,
                             juridic_person:noMask,
                             physical_person:null
+                     
 
                         }).then(function(response){
                             console.log(response.data)
                             try{
                                 api.get(`account/?juridic_person=${noMask}`).then(function(response){
-
+                                    console.log(response.data)
                                     informationsAccountUser(
                                         response.data[0].id,
                                         response.data[0].agency,
@@ -103,10 +104,7 @@ export default function Juridic({ navigation }) {
                                     
                                     )
                                     console.log(response.data[0].id)
-                                    api.post("card/",{
-                                        account:response.data[0].id
-    
-                                    }).then(function(response){
+                                  
 
                                         api.post("address/",{
                                             city:city,
@@ -122,12 +120,9 @@ export default function Juridic({ navigation }) {
                                             navigation.navigate("First")
                                         })
                                         
-                                        cardUserLog(
-                                            response.data.number,
-                                            response.data.validity
-                                        )
+                                    
                                     })
-                                })
+                                
         
                             }catch(error){
                                 console.error(error);

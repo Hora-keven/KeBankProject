@@ -36,7 +36,7 @@ export default function LoginUser({ navigation }) {
                 })
                 try {
                     api.get(`account/?${(noMask.length) == 11? 'physical_person='+noMask: 'juridic_person='+noMask}`).then(function(response){
-                        console.log(response.data[0])
+                        console.log(response.data)
                         
                         informationsAccountUser(
                             response.data[0].id,

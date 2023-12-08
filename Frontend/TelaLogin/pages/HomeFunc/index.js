@@ -23,7 +23,7 @@ export default function FirstScreen({ navigation }) {
     const [imageG, setImageG] = useState(null)
     const [imageJ, setImageJ] = useState(null)
     const [isGalleryOrCamera, setIsGaleryOrCamera] = useState(false)
-    const {user, userAccount} = useContext(ApiContext)
+    const {user, userAccount, cardUserLog} = useContext(ApiContext)
     const [limit, setLimit] = useState("")
     const [loading, setLoading]=useState(true)
 
@@ -32,7 +32,16 @@ export default function FirstScreen({ navigation }) {
             setLimit(response.data[0].limit)
             setLoading(false)
         })
+       
     })
+
+    useEffect(()=>{
+        api.get(`card/?account=${userAccount.id}`).then(function (response) {
+            console.log(response.data)
+            cardUserLog(response.data[0].number, response.data[0].validity)
+        })
+    }, [])
+
     const funcaoApp = [
         {
             id: 1,

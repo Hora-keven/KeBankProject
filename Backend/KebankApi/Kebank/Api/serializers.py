@@ -1,26 +1,21 @@
 from rest_framework import serializers
-from django.db.models import fields
+
 from Kebank.models import *
-from Kebank.Api.number_rand import *
-from datetime import datetime, timedelta
+from . number_rand import *
+from django.contrib.auth import get_user_model
 
-import pytz
-
-date_actual = datetime.now(pytz.utc)
-date_future = date_actual + timedelta(days=365 * 5)
-fuso_horario = pytz.timezone('America/Sao_Paulo')
-date_future_timezone = date_future.astimezone(fuso_horario)
+from djoser.serializers import UserCreateSerializer
 
 
+date_future_timezone = date_time()
 
-class UserSerializer(serializers.ModelSerializer):
+User = get_user_model()
+
+class UserSerializer(UserCreateSerializer):
     class Meta:
         model = User
-        fields = ["id", "cpf_cnpj", "first_name", "surname", "is_active","password"]
+        fields = ["id","first_name", "surname", "email", "password" ,'cpf_cnpj', "image"]
         
-    password = serializers.CharField(write_only=True)
-   
-
 class AddressSerialzer(serializers.ModelSerializer):
     class Meta:
       model = Address
@@ -31,28 +26,18 @@ class MovimentationSerializer(serializers.ModelSerializer):
     class Meta:
       model = Movimentation
       fields = "__all__"
-
   
     def get_date_hour(self, instance):
         return instance.date_hour.strftime('%d/%m/%Y %H:%M:%S')
+    
+    def create(self, validated_data):
+        return Movimentation.objects.create(**validated_data)
       
 class CardSerializer(serializers.ModelSerializer):
+  
   class Meta:
     model = Card
     fields = "__all__"
-  
-  def to_internal_value(self, data):
-      
-        return {
-            'account': Account.objects.get(id=data['account']),
-            'flag_card': 'Mastercard',
-            'number': str(number_random(a=100000000000, b=1000000000000))+"0810",
-            'validity': date_future_timezone.date(),
-            'cvv': number_random(100, 900),  
-        }
-
-  def create(self, validated_data):
-        return Card.objects.create(**validated_data)
 
       
 class LoanSerializer(serializers.ModelSerializer):
@@ -60,65 +45,7 @@ class LoanSerializer(serializers.ModelSerializer):
     model = Loan
     fields = "__all__"
   
-class PixSerializer(serializers.ModelSerializer):
-    to_account_name = serializers.SerializerMethodField()
-    from_account_name = serializers.SerializerMethodField()
-    class Meta:
-      model = Pix
-      fields = ["to_account", "to_account_name",  "from_account", "from_account_name", "value"]
 
-    def get_to_account_name(self, obj):
-        to_account_user = getattr(obj, 'to_account', None)
-        
-    
-      
-        
-        if to_account_user:
-            juridic_person = to_account_user.juridic_person
-            physical_person = to_account_user.physical_person
-            
-            if physical_person:
-            
-                return {'cpf': physical_person.cpf, 'name': physical_person.fk_user.first_name}
-            
-            elif juridic_person:
-            
-                return {'cnpj': juridic_person.cnpj, 'Company_name': juridic_person.fk_user.first_name}
-     
-        else:
-            return None
-        
-    def get_from_account_name(self, obj):
-        from_account_user = getattr(obj, 'from_account', None)
-        if from_account_user:
-            physical_person = from_account_user.physical_person
-            juridic_person = from_account_user.juridic_person
-            
-            if physical_person:
-            
-                return {'cpf': physical_person.cpf, 'name': physical_person.fk_user.first_name}
-            
-            elif juridic_person:
-            
-                return {'cnpj': juridic_person.cnpj, 'Company_name': juridic_person.fk_user.first_name}
-        
-        else:
-            return None
-        
-    def create(self, validated_data):
-        to_account = validated_data.pop('to_account')  
-
-        
-        to_account_instance = Pix.objects.create(**to_account)
-    
-   
-        validated_data['to_account'] = to_account_instance
-
-      
-    
-        return to_account_instance
-    
-   
 class AccountSerializer(serializers.ModelSerializer):
     account_card = CardSerializer(many=True, read_only=True)
   
@@ -153,12 +80,8 @@ class AccountSerializer(serializers.ModelSerializer):
       
         return to_account_physical_person
         
-        
-
 class PhysicalPersonSerializer(serializers.ModelSerializer):
-   
     user = serializers.SerializerMethodField()
-  
     class Meta:
         model = PhysicalPerson
         fields = [  "cpf", "rg","born_date", "user", "fk_user"]
@@ -168,8 +91,6 @@ class PhysicalPersonSerializer(serializers.ModelSerializer):
         return {'id': user.id, 'first_name': user.first_name}
 
 class JuridicPersonSerializer(serializers.ModelSerializer):
-
-  
   class Meta:
         model = JuridicPerson
         fields = "__all__"
@@ -185,6 +106,9 @@ class CreditCardSerializer(serializers.ModelSerializer):
       fields = "__all__"
 
       write_only_fields = "account"
+
+        
+  
       
     
     
