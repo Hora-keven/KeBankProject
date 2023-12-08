@@ -16,7 +16,7 @@ export default function ScreenExtract({ navigation }) {
 
 
     useEffect(() => {
-        api.get("movimentation/?account=" + userAccount.id).then(function (response) {
+        api.get("movimentation/?from_account=" + userAccount.id).then(function (response) {
             console.log(response.data)
             
             const newObjects = response.data.map(each => ({
@@ -41,7 +41,7 @@ export default function ScreenExtract({ navigation }) {
             <Text style={styles.txt}>R${value}</Text>
             <Text style={styles.txt}>{date}</Text>
            
-            <MaterialCommunityIcons name={title == "Transferência enviada"?"transfer-up":"transfer-down"} size={30} style={{ color: "#155e85", bottom: 35 }} />
+            <MaterialCommunityIcons name={title == "Transferência enviada!"?"transfer-up":"transfer-down"} size={30} style={{ color: "#155e85", bottom: 35 }} />
         </View>
 
     )

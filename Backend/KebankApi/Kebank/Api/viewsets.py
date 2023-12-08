@@ -164,7 +164,7 @@ class MovimentationViewSet(viewsets.ModelViewSet):
     queryset = Movimentation.objects.all()
    
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["state", "date_hour", "credit_card"]
+    filterset_fields = ["state", "date_hour", "credit_card", "from_account"]
 
     
     def create(self, request, *args, **kwargs):
@@ -189,14 +189,13 @@ class MovimentationViewSet(viewsets.ModelViewSet):
             movimentation.from_account.limit -= movimentation.value
             movimentation.to_account.limit += movimentation.value
             movimentation.state = "Transferência enviada!"
-
+            movimentation.value = Decimal(-data["value"])
             movimentation_sender =Movimentation(
 
                 type_movimentation = "Pix",
                 state = "Transferência recebida!",
                 value = Decimal(data["value"]),
-                from_account = movimentation.from_account,
-                to_account = movimentation.to_account
+                from_account = movimentation.to_account
             )
             
             movimentation.save()

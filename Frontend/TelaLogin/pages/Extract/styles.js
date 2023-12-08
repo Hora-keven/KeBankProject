@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         height:100,
         width:350, 
         display:"flex",
-        gap:12,
+        
         
     },
 
@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
     },
 
     function:{
-        marginTop:5,
+       
         backgroundColor:'white',
         width:300,
-        height:120, 
-        margin:0,
+        height:90, 
         borderRadius:7,
         borderLeftWidth:2,
+       
         
     },
     slides:{

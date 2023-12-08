@@ -113,7 +113,7 @@ export default function ScreenPix({ navigation }) {
 
 
                         <TextInputMask
-                            style={[styles.input, { borderBottomColor: 'white', borderBottomWidth: 2 }]}
+                            style={[styles.input, { borderBottomColor: 'white', borderBottomWidth: 2, color:"white" }]}
                             type={'money'}
                             options={{
 
