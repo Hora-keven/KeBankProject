@@ -1,3 +1,3 @@
 # KeBankProject
 
-I did this project for my learning. I share it with you.
+I make this project for my learning. So i want share it with you.
